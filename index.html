@@ -49,7 +49,7 @@
         // Add markers based on geoinfo
         params.geoinfo.forEach(info => {
             const type = Object.keys(info)[0]; // This could be USER, Q_1, Q_2, etc.
-            const { lat, lng } = info[type];
+            const { lat, lng, accuracy = "（沒有數據）" } = info[type];
 
             // Determine the icon URL
             const iconUrl = type === 'USER'
@@ -68,7 +68,7 @@
 
             if (type != 'USER') {
                 // Create popup content for Q_n types
-                const popupContent = `💡 Question ${type.split('_')[1]}`; // Extract n from Q_n
+                const popupContent = `💡 問題 ${type.split('_')[1]}<br/><br/>(誤差範圍：${accuracy})`; // Extract n from Q_n
                 marker.bindPopup(popupContent);
             }
 
